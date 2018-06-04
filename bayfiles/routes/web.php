@@ -26,42 +26,12 @@ Route::get('/', function () {
 });
 
 //////////////////////////////ajax//////////////////////////////////
-Route::get('manage-item-ajax', 'ItemAjaxController@manageItemAjax');
 
-Route::resource('item-ajax', 'BssrController');
-
-Route::put('item-ajax/{id}', 'BregController@update');
-
-////////////////////////////breg/////////////////////////////////
-
-Route::get('breg', 'BregController@index');
-
-Route::get('/breg/create', 'BregController@create');
-
-Route::get('/breg/verify', 'BregController@verify');
-
-Route::get('/breg/{id}', 'BregController@show');
-
-Route::get('/breg/{id}/edit', 'BregController@edit');
-
-Route::post('breg', 'BregController@store');
-
-Route::put('/breg/{id}', 'BregController@update');
-
-Route::delete('/breg/{id}', 'BregController@destroy');
-
-Route::post('/breg/approve/{id}', 'BregController@approve');
-
-///////////////////////////breg end//////////////////////
 Auth::routes();
 
 Route::get('/home', 'BssrController@bssr');
 
 ///////////////////////////bssr///////////////////////////
-
-//Route::get('/bssr', function () {
-//    return view('bssr');
-//});
 
 Route::get('/', 'BssrController@bssr');
 
@@ -79,11 +49,11 @@ Route::post('/bssrcomment', 'BssrController@comment');
 
 Route::get('commentdelete', 'BssrController@commentdelete');
 
-Route::get('imageupload/{advid}', 'BssrController@imageindex');
+Route::get('imageupload/{advid}', 'BssrController@imageupload');
 
 Route::post('imageupload', 'BssrController@imageupload');
 
-Route::delete('imageupload/{id}', 'BssrController@imagedestroy');
+Route::delete('imagedelete', 'BssrController@imagedestroy');
 
 Route::get('categoryview/{catid}', 'BssrController@categoryview');
 
@@ -101,6 +71,10 @@ Route::get('myaccount', 'BssrController@myaccount');
 
 Route::post('myaccount', 'BssrController@myaccountupdate');
 
+Route::get('test', function () {
+    return view('test');
+});
+
 Route::get('auth/facebook', 'Auth\RegisterController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\RegisterController@handleProviderCallback');
 
@@ -112,6 +86,9 @@ Route::get('bssrfilter', function () {
 
 Route::get('/api/v1/bssrfilter/{id?}', 'BssrController@index');
 Route::post('/api/v1/bssrfilter1', 'BssrController@filter');
-Route::post('/api/v1/employees/{id}', 'Employees@update');
-Route::delete('/api/v1/employees/{id}', 'Employees@destroy');
 
+
+ 
+Route::get('/images/{advid}', 'BssrController@getAdvImages');
+ 
+Route::post("/delete/file", "BssrController@filedestroy");

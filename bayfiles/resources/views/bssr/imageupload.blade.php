@@ -22,18 +22,18 @@
     }
     </style>
 
-    	<div class="row">
+<div ng-app="App" ng-controller="FileUploadController">  
+  	<div class="row">
       	    
            <div class="col-md-8">
-            <h3>
-	    {{ $images->first()->advtopic }}
-	    </h3>
-	    </div>
+                <h3>
+                {{ $adv->advtopic }}
+                </h3>
+            </div>
 	    
         </div>
-        
-        
-    <form action="{{ url('imageupload') }}" class="form-image-upload" method="POST" enctype="multipart/form-data">
+
+    <!--form action="{{ url('imageupload') }}" class="form-image-upload" method="POST" enctype="multipart/form-data"-->
         {!! csrf_field() !!}
         @if (count($errors) > 0)
             <div class="alert alert-danger">
@@ -56,46 +56,44 @@
        <div class="row">
       	    
            <div class="col-md-6">
-                <input type="file" name="image" onchange="javascript:this.form.submit();">
-                <input type="hidden" name="advid" value="{{ $images->first()->id }}">
-                <input type="hidden" name="adtitle" value="{{ $images->first()->advtopic }}">
+                
+		        <div class="form-group">
+                    <label for="files">Select Image File</label>
+                    <label class="btn btn-default">
+                    <input type="file" ng-model="image_file" onchange="angular.element(this).scope().uploadFile()" ng-files="setTheFiles($files, {{ $adv->id }})" id="image_file" class="form-control">
+                    </label>
+                </div>
+                <ul class="alert alert-danger" ng-if="errors.length > 0">
+                    <li ng-repeat="error in errors">
+                        @{{ error }}
+                    </li>
+                </ul>
+  		
            </div>
-            <div class="col-md-2">
-                
-                <!--button type="submit" class="btn btn-success">Upload</button-->
-                
-                
-            </div>
+            
         </div>
-    </form> 
+    <!--/form--> 
     
-    <div class="row">
-    <div class='list-group gallery'>
-  	
-            @if($images->count())
-                @foreach($images as $image)
-                <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
-                    <a class="thumbnail fancybox" rel="ligthbox" href="{{ url('/avatar/'.$image->path) }}">
-                        <img class="img-responsive" alt="" src="{{ url('/avatar/'.$image->path) }}" />
-                        <div class='text-center'>
-                            
-                        </div> <!-- text-center / end -->
-                    </a>
-                    <form action="{{ url('imageupload',$image->picid) }}" method="POST">
-                    <input type="hidden" name="_method" value="delete">
-                    <input type="hidden" name="advid" value="{{ $image->id }}">
+    <div id="imageGal" ng-if="files.length > 0" class="row">  	
+        <div ng-repeat="file in files" class='col-sm-4 col-xs-6 col-md-3 col-lg-3 mb-2'>
+            
+            <a data-fancybox="gallery" href="{{ url('/avatar/') }}/@{{ file.path  }}">
+                <img height="100px" src="{{ url('/avatar/') }}/@{{ file.path  }}">
+            </a>
 
-                    {!! csrf_field() !!}
+            <form action="{{ url('imagedelete') }}" method="POST">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="advid" value="{{ $adv->id  }}">
+            <input type="hidden" name="pic_id" value="@{{ file.picid  }}">
 
-                    <button type="submit" class="close-icon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
-                    </form>
-                </div> <!-- col-6 / end -->
+            {!! csrf_field() !!}
 
-                @endforeach
-                @else
+            <button type="submit" class="close-icon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
+            </form>
+        </div> <!-- col-6 / end -->
+
+                
                 	Please upload images for better promotion of your ad.
-            @endif
-        </div> <!-- list-group / end -->
     </div> <!-- row / end -->
 
     <div class="row">
@@ -103,8 +101,8 @@
            <form action="{{url('postadv')}}" method="post">
            {!! csrf_field() !!}
             <div class="col-md-6">
-            	<input type="hidden" name="advid" value="{{ $images->first()->id }}">
-                <input type="hidden" name="adtitle" value="{{ $images->first()->advtopic }}">
+            	<input type="hidden" name="advid" value="{{ $adv->id }}">
+                <input type="hidden" name="adtitle" value="{{ $adv->advtopic }}">
                 
                 <button type="submit" class="btn btn-success">Post you Advert</button>
             </div>
@@ -112,13 +110,9 @@
         </div>
 
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".fancybox").fancybox({
-            openEffect: "none",
-            closeEffect: "none"
-        });
-    });
-</script>
+</div>
+
+<!-- AngularJS Application Scripts -->
+<script src="<?= asset('app/controllers/userbackend.js') ?>"></script>
 
 @endsection

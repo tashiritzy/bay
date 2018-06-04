@@ -2,64 +2,7 @@
 
 @section('content')
 
-<!--script>
-
-$(document).ready(function() {
-  
-$(".carousel").swiperight(function() {
-    $(this).carousel('prev');
-});
-$(".carousel").swipeleft(function() {  
-    $(this).carousel('next');
-});
- 
-}); 
-
-</script>
-
-    
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".fancybox").fancybox({
-            openEffect: "none",
-            closeEffect: "none"
-        });
-    });   
-  
-    $(".carousel").on("touchstart", function(event){
-	var xClick = event.originalEvent.touches[0].pageX;
-    $(this).one("touchmove", function(event){
-	var xMove = event.originalEvent.touches[0].pageX;
-	if( Math.floor(xClick - xMove) > 5 ){
-	    $(".carousel").carousel('next');
-	}
-	else if( Math.floor(xClick - xMove) < -5 ){
-	    $(".carousel").carousel('prev');
-	}
-    });
-    $(".carousel").on("touchend", function(){
-	    $(this).off("touchmove");
-    });
-});
-    
- /*
-    $("#.carousel").swipe( {
-            swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-
-                if(direction=='left'){
-                    $(this).carousel('next');
-                }else if(direction=='right'){
-                    $(this).carousel('prev');
-                }
-
-            }
-        });
-    */
-</script-->
-
 {{ csrf_field() }}
-
-@include('search')
 
     <center><font color="green">
 	{{ $message }}
@@ -75,127 +18,19 @@ $(".carousel").swipeleft(function() {
     		<font color="#575858" size="5">{{ $bssr->first()->advtopic }}</font> 
 		<br/>    		
     		
-    	<div class='list-group gallery'>
+    	<div class='row'>
     	@if($images->count())
                 @foreach($images as $image)
-                <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
-                    <!--a class="thumbnail fancybox" id="myCarousal" rel="ligthbox" href="{{ url('/avatar/'.$image->path) }}">
-                        <img class="img-responsive" alt="" src="{{ url('/avatar/'.$image->path) }}" />
-                        <div class='text-center'>
-                            <small class='text-muted'> </small>
-                        </div> 
-                    </a-->
-
-                    
-			<!--a class="fancybox" rel="gallery" href="{{ url('/avatar/'.$image->path) }}"><img class="img-responsive" src="{{ url('/avatar/'.$image->path) }}" alt=""/></a-->
-			
-			
-			<!--a class="fancybox" rel="gallery" href="http://fancyapps.com/fancybox/demo/2_b.jpg">
-			    <img src="{{ url('/avatar/'.$image->path) }}" class="img-responsive" alt="" />
-			    </a-->
-					    
-					    
-			    <!--script>
-			    
-			    jQuery(document).ready(function () {
-			    jQuery(".fancybox").fancybox({
-				maxWidth: 1600,
-				maxHeight: 1000,
-				fitToView: false,
-				width: '50%',
-				height: '50%',
-				autoSize: false,
-				padding: '0',
-				closeClick: true,
-				afterShow: function () {
-				    jQuery('.fancybox-wrap').swipe({
-					swipe: function (event, direction) {
-					    if (direction === 'left' || direction === 'up') {
-						jQuery.fancybox.prev(direction);
-					    } else {
-						jQuery.fancybox.next(direction);
-					    }
-					}
-				    });
-				}
-			    });
-			});
-			    
-			    </script-->
-         
-   
-                    
-     <!---------------------------------------fancybox touch start--------------------------------------------->
-                    
-                    <div class="gallery-outer" style="background-image: url('/avatar/'.$image->path)">
-		    <a href="{{ url('/avatar/'.$image->path) }}" class="js-fancybox" data-fancybox-group="js-fancybox-button">
-		      <div class="gallery-inner">
-		      
-		        <img class="img-responsive thumbnail fancybox" alt="" src="{{ url('/avatar/'.$image->path) }}" />
-                        
-		      </div>
-		    </a>
-		    </div>
-		    
-		    
-			<script>
-			$(document).ready(function() {
-			
-			    $('.js-fancybox').fancybox({
-				width: "100%",
-				margin: [0, 0, 0, 0],
-				padding: [5, 5, 5, 5],
-				openEffect  : 'none',
-				closeEffect : 'none',
-				prevEffect : 'fade',
-				nextEffect : 'fade',
-				closeBtn  : true,
-				arrows : true,
-				helpers : {
-				    title : null,
-				    overlay : {
-					css : {
-					    'background' : 'rgba(0, 0, 0, 0.95)' 
-					}
-				    },
-				    buttons : {
-				    }
-			
-				},
-				afterShow: function() {
-				    $('.fancybox-wrap').swipe({
-					swipe : function(event, direction) {
-					    if (direction === 'left' || direction === 'up') {
-						$.fancybox.prev( direction );
-					    } else {
-						$.fancybox.next( direction );
-					    }
-					}
-				    });
-			
-				},
-			
-				afterLoad : function() {
-				}
-			    });
-			    
-			});
-			
-			</script>
-			
-			<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.js"></script>
-			  
-			<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.js"></script>
-			
-			<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
-    <!---------------------------------------fancybox touch end--------------------------------------------->
-                    
+                <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3 mb-2'>
+				<a data-fancybox="gallery" href="{{ url('/avatar/') }}/{{ $image->path }}">
+						<img height="100px" src="{{ url('/avatar/') }}/{{ $image->path }}">
+					</a>
                 </div> <!-- col-6 / end -->
 
                 @endforeach
-            @endif
-     </div> <!-- list-group / end -->	
-    		
+			@endif
+			
+		 </div>	
     	</td>
     </tr>
     <tr>
@@ -223,17 +58,25 @@ $(".carousel").swipeleft(function() {
                 <font color="#1ccfef" size="2">Posted on {{ date('d F, Y', strtotime($bssr->first()->created_at)) }} </font>
                 <br/>
                 <img src="{{ url('images/location.jpg') }}" height="25px" width="22px"> {{ $bssr->first()->placename }}
-                <p>
-                  Posted By: <b>{{ $bssr->first()->name }}</b> 
-                </p>
-            <div class="visible-xs visible-sm">
+				
+				<p>
+                  Posted By: <b>{{ $bssr->first()->uname }}</b> 
+				</p>
+				
+            <div class="d-block d-sm-none">
             <center>
                <a href="tel:{{$bssr->first()->phone }}">
-                    <button type="button" size="30" class="btn btn-success"> Call </button>
+                    <button type="button" size="30" class="btn btn-success"> 
+						<i class="fa fa-phone mr-1"></i>
+						Call 
+					</button>
                </a>
                &nbsp; &nbsp;
                <a href="sms:{{$bssr->first()->phone }}">
-                    <button type="button" size="30" class="btn btn-success"> Send SMS </button>
+                    <button type="button" size="30" class="btn btn-success"> 
+						<i class="fa fa-envelope-open mr-1"></i>	
+						Send SMS 
+					</button>
                </a>
              </center>
             </div>
@@ -271,10 +114,10 @@ $(".carousel").swipeleft(function() {
 
 		<br/>
 		<font size="2">Commented by: </font><font color="#1ccfef" size="2">
-		<!--------------------------Ajax user profile------------------------------->
-		<a href data-id="{{ $cmmt->userid }}" data-toggle="modal" data-target="#uprofile-item" >{{ $cmmt->name }}</a></font>
+		<!--------------------------Ajax user profile-----------------------------!-->
+		<a href data-id="{{ $cmmt->userid }}" data-toggle="modal" data-target="#uprofile-item" >{{ $cmmt->cname }}</a></font>
 		
-		<!------------------------------------ajax---------------------------->
+		<!------------------------------------ajax--------------------------!-->
 		<table>
 				
 		<tr>			
@@ -307,7 +150,7 @@ $(".carousel").swipeleft(function() {
 
 		      	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 
-		        <h4 class="modal-title" id="myModalLabel">{{$cmmt->name}}</h4>
+		        <h4 class="modal-title" id="myModalLabel">{{$cmmt->cname}}</h4>
 		       
 		      </div>
 
@@ -347,9 +190,13 @@ $(".carousel").swipeleft(function() {
     	@else
     		<form class="" method="post" action="{{ url('/bssrcomment') }}">
     		{{ csrf_field() }}
-    		<textarea name="comment" placeholder="Enter your comment here, {{ Auth::user()->name }}"></textarea>
-    		<input type="hidden" value="{{ $bssr->first()->id }}" name="advid">
-    		<input type="submit" value="Enter">
+    		<textarea name="comment" class="form-control" rows="5" placeholder="Enter your comment here, {{ Auth::user()->name }}"></textarea>
+						
+			
+			<input type="hidden" value="{{ $bssr->first()->id }}" name="advid">
+			<button class="btn btn-success">
+				<i class="fa fa-comment mr-1"></i> Enter
+			</button>
     		<!--input type="hidden" name="_token" value="{{ csrf_token() }}"-->
     		</form>
     	@endif

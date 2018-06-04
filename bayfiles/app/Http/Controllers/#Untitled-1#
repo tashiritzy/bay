@@ -1,5 +1,0 @@
-select 'adv.advtopic', 'picture.path', 'place.placename', 'category.categoryname' from adv 
-            		left join picture on adv.pictureid=picture.id
-                    left join place on adv.placeid=place.id
-            		left join category on adv.categoryid=category.id
-            		where 'category.id'='3'

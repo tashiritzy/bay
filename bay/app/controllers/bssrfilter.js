@@ -7,7 +7,7 @@ app.controller('bssrfilterController', function($scope, $http, API_URL) {
     	    //alert('1');
     	    
     	    $scope.loading = true;
-	    $http.get(API_URL + "bssrfilter")
+	    	$http.get(API_URL + "bssrfilter")
 		    .success(function(data) {
 			$scope.bssr = data;
 		    });
@@ -47,17 +47,12 @@ app.controller('bssrfilterController', function($scope, $http, API_URL) {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             data: $.param($scope.bssrfilter)
         }).success(function(data) {
-            console.log(data);
-           
-            console.log($scope.bssrfilter);
             
             $scope.bssr = data.data;
             
             $scope.currentpage = data.current_page;
             
             $('.loading').hide();
-            
-            //$scope.bssrfilter = {};
             
         }).error(function(response) {
             console.log(response);
@@ -67,10 +62,8 @@ app.controller('bssrfilterController', function($scope, $http, API_URL) {
     
     /////////////////////////////////////////////////////////
 	    $scope.loadMore = function() {
-		//$scope.loading = true;
 		$('.loading').show();
 		$scope.lastpage +=1;
-		//var url = API_URL + "bssrfilter1";
 		console.log($scope.bssrfilter);
 		
 		if($scope.bssrfilter !== undefined)
@@ -85,12 +78,6 @@ app.controller('bssrfilterController', function($scope, $http, API_URL) {
 			    $scope.bssr = $scope.bssr.concat(data.data);
 			    
 			    $('.loading').hide();
-			    
-			    console.log($scope.bssrfilter);
-			    
-			    console.log($scope.bssr);
-			    
-			    console.log($scope.lastpage);
 			
 			   });	
 			
@@ -109,8 +96,6 @@ app.controller('bssrfilterController', function($scope, $http, API_URL) {
 			    $scope.bssr = $scope.bssr.concat(data.data);
 			    
 			    $('.loading').hide();
-			    
-			    //console.log(events);
 			
 			});		
 		}
@@ -118,6 +103,4 @@ app.controller('bssrfilterController', function($scope, $http, API_URL) {
 	};
 	
 	///////////////////Pagination End ////////////////////
-    
-    //$scope.listSearch();
 });

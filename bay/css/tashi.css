@@ -62,4 +62,9 @@ button#filterbutton{
     border: 1px solid #32eeac;
 }
 
+.file-field.big .file-path-wrapper {
+    height: 3.2rem; }
+    .file-field.big .file-path-wrapper .file-path {
+      height: 3rem; }  
+
 

@@ -26,42 +26,44 @@ use Image;
 use File;
 use Mail;
 
+// -- file upload --
+use Symfony\Component\HttpKernel\Tests\Debug\FileLinkFormatterTest;
+use Illuminate\Support\Facades\Storage;
+
 class BssrController extends Controller
 {
     //
-    
 	public function bssr()
 	{
-		
 		$cat = DB::table('category')
 			->get();
 			
 		$place = DB::table('place')
 			->get();
-		
-			
+
 		$bssr = DB::table('adv')
            		->leftjoin('picture', 'adv.id', '=', 'picture.advid')
 			->leftjoin('place', 'adv.placeid', '=', 'place.id') 
 			->leftjoin('category', 'adv.categoryid', '=', 'category.id')
-            		->select('adv.*', 'picture.path', 'place.placename', 'category.categoryname')
-			->orderby('adv.created_at', 'DESC')           		
+                        ->leftjoin('advcomment', 'adv.id', '=', 'advcomment.advid')
+            		->select('adv.*', 'picture.path', 'place.placename', 'category.categoryname', 'advcomment.comment')
+			->where('adv.status', '=', '1')
+                        ->orderby('adv.created_at', 'DESC')           		
 			->groupBy('adv.id')
 			->paginate(20);
 
 		return view('bssr', compact('bssr', 'cat', 'place'));
-		//return Bssr::orderBy('id', 'asc')->get();
 	}
-	
-	public function index($id = null) 
+
+    public function index($id = null) 
 	{
-		//return DB::table('adv')->get();
 			
 		$bssr = DB::table('adv')
            		->leftjoin('picture', 'adv.id', '=', 'picture.advid')
 			->leftjoin('place', 'adv.placeid', '=', 'place.id') 
 			->leftjoin('category', 'adv.categoryid', '=', 'category.id')
             		->select('adv.*', 'picture.path as path', 'place.placename', 'category.categoryname')
+                        ->where('adv.status', '=', '1')
             		->orderby('adv.created_at', 'DESC')           		
 			->groupBy('adv.id')
 			->paginate(10);
@@ -76,42 +78,41 @@ class BssrController extends Controller
 			->get()
 			->toArray();
 			
-		//sendJson(array('bssr'=>$bssr, 'place'=>$place));
-		//return array('bssr' => $bssr, 'cat'   => $cat, 'place' => $place);
-			
 	}
-    
-	
+
 	public function bssrsearch(Request $request)
 	{
-		$search = $request->searchkey;
-		
-		$cat = DB::table('category')
+
+                $cat = DB::table('category')
 			->get();
 			
 		$place = DB::table('place')
 			->get();
-		
+
+		$search = $request->searchkey;
+				
 		$bssr = DB::table('adv')
            		->leftjoin('picture', 'adv.id', '=', 'picture.advid')
 			->leftjoin('place', 'adv.placeid', '=', 'place.id') 
 			->leftjoin('category', 'adv.categoryid', '=', 'category.id')
             		->select('adv.*', 'picture.path', 'place.placename', 'category.categoryname')
+			->where('adv.status', '=', '1')
 			->where('adv.description','like','%'.$search.'%')
 			->orWhere('adv.advtopic','like','%'.$search.'%')
+			->where('adv.status', '=', '1')
 			->orderby('adv.created_at', 'DESC')           		
 			->groupBy('adv.id')
 			->paginate(20);
 		return view('bssr', compact('bssr', 'cat', 'place'));
 	}
-	
-	public function filter(Request $request)
+
+    public function filter(Request $request)
 	{
-		$cat = DB::table('category')
-			->get();
+		//$cat = DB::table('category')
+			//->get();
 			
-		$place = DB::table('place')
-			->get();
+		//$place = DB::table('place')
+			//->get();
 		
 		$search = $request->searchkey;
 		$pricemin = $request->pricemin;
@@ -142,7 +143,26 @@ class BssrController extends Controller
 				->paginate(10);
 			//return view('bssr', compact('bssr', 'cat', 'place'));
 		}
-		else if($pricemin != '' && $pricemax != '' && $category != '')
+		
+        else if($place != '' && $category != '')
+		{
+				
+			$bssr = DB::table('adv')
+				->leftjoin('picture', 'adv.id', '=', 'picture.advid')
+				->leftjoin('place', 'adv.placeid', '=', 'place.id') 
+				->leftjoin('category', 'adv.categoryid', '=', 'category.id')
+				->select('adv.*', 'picture.path', 'place.placename', 'category.categoryname')
+				->where('adv.categoryid', '=', $category)
+				->where('adv.placeid', '=', $place)
+				->orderby('adv.created_at', 'DESC')           		
+				->groupBy('adv.id')
+				//->get()
+				//->toArray();			
+				->paginate(10);
+			//return view('bssr', compact('bssr', 'cat', 'place'));
+		}
+
+        else if($pricemin != '' && $pricemax != '' && $category != '')
 		{
 				
 			$bssr = DB::table('adv')
@@ -267,29 +287,34 @@ class BssrController extends Controller
 		return ($bssr);
 	}
 	
+
 	public function details($id)
 	{
 		//$bssr = Bssr::find($id);
 		
 		$bssr = DB::table('adv')
-           		->leftjoin('picture', 'adv.id', '=', 'picture.advid')
+			->leftjoin('picture', 'adv.id', '=', 'picture.advid')
 			->leftjoin('place', 'adv.placeid', '=', 'place.id') 
 			->leftjoin('category', 'adv.categoryid', '=', 'category.id')
-            		->select('adv.*', 'picture.path', 'place.placename', 'category.categoryname')
-            		->where('adv.id', $id)
-            		->get();
+			->leftjoin('users', 'adv.userid', '=', 'users.id')
+			->select('adv.*', 'picture.path', 'place.placename', 'category.categoryname', 'users.name as uname')
+			->where('adv.id', $id)
+			->get();
 		
-            	$cmmt = DB::table('advcomment')
-            		->leftjoin('users', 'advcomment.userid', '=', 'users.id')
-            		//->leftjoin('users', 'adv.userid', '=', 'users.id')
-            		->select('advcomment.comment', 'users.name', 'users.email as uemail', 'users.phone as uphone', 'advcomment.userid', 'advcomment.id')
-            		->where('advcomment.advid', $id)
-            		->get();
-            	
-            	$images = DB::table('picture')
-            		->where('advid', '=', $id)
-            		->get();
-            	$message = "";
+		$cmmt = DB::table('advcomment')
+			->leftjoin('users', 'advcomment.userid', '=', 'users.id')
+			//->leftjoin('users', 'adv.userid', '=', 'users.id')
+			->select('advcomment.comment', 'users.name as cname', 'users.email as uemail', 'users.phone as uphone', 'advcomment.userid', 'advcomment.id')
+			->where('advcomment.advid', $id)
+			->get();
+		
+		$images = DB::table('picture')
+			->where('advid', '=', $id)
+			->get();
+
+		
+		
+		$message = "";
             		
 		if(!$bssr){
 			abort(404);
@@ -309,14 +334,11 @@ class BssrController extends Controller
 	}
 
 	public function storeadv(Request $request)
-	{
-		//echo "test";		
-		
+	{		
 		$this->validate($request,[
 			'advtopic' => 'required',
 			'category' => 'required',
-			//'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-			//'CaptchaCode' => 'required|valid_captcha',
+                        'phone' => 'required'
 		]);
 		
 		$bssr = new Bssr;
@@ -333,83 +355,110 @@ class BssrController extends Controller
 		$bssr->phone = $request->phone;
 		$bssr->price = $request->price;
 		$bssr->description = $request->description;
-		//$breg->address = $request->address;
-		//$bssr->pictureid = $imageName;
 		$bssr -> save();
 		
 		$addtitle = $request->advtopic;
-		//$pic->path = $imageName;
 		$maxid = Bssr::find(DB::table('adv')->max('id'));
 		$maxidd = $maxid->id;		
-		$pic->advid = $maxidd;				
-		//$pic -> save();
+		$pic->advid = $maxidd;	
 		
-		//return redirect('/imageupload/'.$maxidd);
-		return $this->imageindex($maxidd);
-		//return Redirect::action('UserController@profile', array('user' => 1));
+		return redirect('/imageupload/'.$maxidd);
 	}
-	public function imageindex($advid)
+	public function getAdvImages($advid)
 	{
-		
-		//$advid = $this->advid;
-		//$advid = $request->advid;
-		
-		//$images = Picture::find($advid);
 		$images = DB::table('picture')
            		->rightjoin('adv', 'picture.advid', '=', 'adv.id')
             		->select('picture.advid','picture.path', 'adv.advtopic', 'adv.id', 'picture.id as picid')
             		->where('adv.id', $advid)
             		->get();
 		
-		return view('bssr.imageupload',compact('images'));
+		return ['files' => $images];
+	
+	}
+
+	public function getAdv($advid)
+	{
+		$adv = DB::table('adv')
+					->select('adv.*')
+            		->where('adv.id', $advid)
+            		;
+		
+		return $adv;
 	
 	}
 		
 	public function imageupload(Request $request)
 	{
-		$this->validate($request, [
+		if ($request->isMethod('get'))
+		{
 		
-		    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+			$advid = $request->advid;
+			$adv = $this->getAdv($advid)->first();
+
+			if($adv->userid != Auth::user()->id)
+			{
+				abort(403, 'Unauthorized action.');
+			}
+
+	        return view('bssr.imageupload',compact('adv'));
+	    }
+
+		if ($request->isMethod('post'))
+		{
+			$advid = $request->advID;
 		
-		]);
+			$validator = Validator::make($request->file(), [
+			
+			    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+			
+			]);
+
+			if ($validator->fails()) {
+
+	            $errors = [];
+	            foreach ($validator->messages()->all() as $error) {
+	                array_push($errors, $error);
+	            }
+
+	            //return response()->json(['errors' => $errors, 'status' => 400], 400);
+
+	         }
 		
-		
-		$input['path'] = time().'.'.$request->image->getClientOriginalExtension();
-		
-		$request->image->move(public_path('avatar'), $input['path']);
-				 
-		//$img->resize(300, 200);
-		
-		$image = Image::make(sprintf('avatar/%s', $input['path']))->resize(null, 500, function($cnts){$cnts->aspectRatio();})->save();
-		
-		$advid = $request->advid;
-		$addtitle = $request->adtitle;
-		$input['advid'] = $advid;
-		
-		Picture::create($input);
-		
-		//return back()->with('advid', $advid)->with('addtitle', $addtitle);
-		return $this->imageindex($advid);
+			$input['path'] = time().'.'.$request->file('image_file')->getClientOriginalExtension();
+			
+			$request->file('image_file')->move('avatar', $input['path']);
+			
+			$image = Image::make(sprintf('avatar/%s', $input['path']))->resize(null, 500, function($cnts){$cnts->aspectRatio();})->save();
+
+			$input['advid'] = $advid;
+			
+			Picture::create($input);
+			
+			//return redirect('/images/'.$advid);
+		}
 	
 	}
 
-	public function imagedestroy($id)
+	public function imagedestroy(Request $request)
 	{
-		$inputs = Input::all();
-		$advid=$inputs['advid'];
-		
+		//$inputs = Input::all();
+		$advid=$request['advid'];
+		$id = $request['pic_id'];
 		
 		$img = Picture::find($id);
-		
-		$image_path = public_path("avatar/".$img->path);
+
+		$image_path = Storage::disk('s3')->url("avatar/".$img->path);
+
+		echo image_path();
 
 		if (File::exists($image_path)) {
 			//File::delete($image_path);
 			unlink($image_path);
 		 }
+		 unlink($image_path);
 		 $img->delete();
 			//return back() ->with('success','Image removed successfully.');	
-		return $this->imageindex($advid);
+		return redirect('/imageupload/'.$advid);
 	}	
 	
 	public function comment(Request $request)
@@ -454,11 +503,11 @@ class BssrController extends Controller
 		Mail::send('emails.commentnotify', $mailcont, function ($message) use ($email_to)
 		{
 		
-		    $message->from('noreply@gmail.com', 'BSSR Administration');
+		    $message->from('noreply@druklink.net', 'Rent Exchange Buy Sell Administration');
 		
 		    $message->to($email_to);
 				
-		    $message->subject("BSSR Mail Notification");
+		    $message->subject("REBS Mail Notification");
 		 });
 		//------------------------- mail end----------------------------------
 		
@@ -539,12 +588,13 @@ class BssrController extends Controller
 			->leftjoin('picture', 'picture.advid', '=', 'adv.id')
             		->select('adv.*', 'picture.path as path', 'place.placename as placename', 'category.categoryname as categoryname')
             		->where('category.categoryname', 'like', '%'.$catid.'%')
+					->where('adv.status', '=', '1')
             		->groupBy('adv.id')
             		//->groupBy('adv.id')
             		->orderby('adv.created_at', 'DESC')
             		->paginate(20);
-            		            		
-		return view('bssr.category')->with('bssr', $bssr);
+
+		return view('bssr', compact('bssr', 'catid'));
 	}
 	public function userhome()
 	{
@@ -642,16 +692,78 @@ class BssrController extends Controller
 				
 		return view('userhome')->with('message', 'Your account updated successfully');
 	}
-	
-	public function angular($id = null) {
-		
-	if ($id == null) {
-            return Bssr::orderBy('id', 'asc')->get();
-            //return view('bssr.angular', compact('bssr'));
-        } else {
-            return $this->bssr($id);
+
+    /**
+     * Load Files View
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function files()
+    {
+        return view('bssr.imageupload');
+    }
+
+    /**
+     * List Uploaded files
+     *
+     * @return array
+     */
+    public function listFiles(Request $request)
+    {
+        return ['files' => DB::table('picture')
+            		->select('picture.*')
+            		->where('advid', $request->advid)
+            		->get()
+        	];
+    }
+
+
+    /**
+     * Upload new File
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function upload(Request $request)
+    {
+        $validator = Validator::make($request->file(), [
+            'image_file' => 'required|image|max:5048',
+        ]);
+
+        if ($validator->fails()) {
+
+            $errors = [];
+            foreach ($validator->messages()->all() as $error) {
+                array_push($errors, $error);
+            }
+
+            return response()->json(['errors' => $errors, 'status' => 400], 400);
         }
-        
+
+        $file = Picture::create([
+            'path' => $request->file('image_file')->getClientOriginalName()
+        ]);
+
+        $request->file('image_file')->move('avatar', $file->id . '.' . $file->type);
+
+        return response()->json(['errors' => [], 'files' => Picture::all(), 'status' => 200], 200);
+    }
+
+    /**
+     * Delete existing file from the server
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Request $request)
+    {
+        Storage::delete(__DIR__ . '/../../../image_uploads/' . $request->input('id'));
+
+        File::find($request->input('id'))->delete();
+
+        return response()->json(['errors' => [], 'message' => 'File Successfully deleted!', 'status' => 200], 200);
     }
 
 }
