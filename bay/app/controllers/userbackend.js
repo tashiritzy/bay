@@ -18,7 +18,7 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 
 app.controller('FileUploadController', ['$scope', '$http', '$window', function ($scope, $http) {
 
-    var API_URL = "http://192.168.1.110/bay/bay/";
+    var API_URL = "http://localhost/bay/bay/";
 
     $scope.errors = [];
 

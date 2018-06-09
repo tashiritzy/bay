@@ -434,7 +434,7 @@ class BssrController extends Controller
 			
 			Picture::create($input);
 			
-			//return redirect('/images/'.$advid);
+			return redirect('/images/'.$advid);
 		}
 	
 	}
@@ -447,17 +447,18 @@ class BssrController extends Controller
 		
 		$img = Picture::find($id);
 
-		$image_path = Storage::disk('s3')->url("avatar/".$img->path);
-
-		echo image_path();
+		$image_path = "avatar/".$img->path;
 
 		if (File::exists($image_path)) {
 			//File::delete($image_path);
 			unlink($image_path);
+			$img->delete();
 		 }
-		 unlink($image_path);
-		 $img->delete();
-			//return back() ->with('success','Image removed successfully.');	
+		 else
+		 {
+			abort(403, 'Unauthorized action.');
+		 }
+		 	
 		return redirect('/imageupload/'.$advid);
 	}	
 	

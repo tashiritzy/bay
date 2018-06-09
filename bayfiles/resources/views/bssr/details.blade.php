@@ -129,15 +129,7 @@
 		</tr>
 		</table>
 		<!---------------------------------end ajax-------------------------------->
-		
-        <script type="text/javascript">
-
-    	   var url = "<?php echo route('item-ajax.index')?>";
-
-        </script>
-
-        <script src="/js/item-ajax.js"></script> 
-        
+		        
 		<!-------------------------ajax user profile Item Modal -------------------------------------->
 
 		<div class="modal fade" id="uprofile-item" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
