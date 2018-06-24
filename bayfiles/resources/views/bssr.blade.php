@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="row" ng-app="bssrFilter" ng-controller="bssrfilterController">
+<div class="row" ng-app="bssrApp" ng-controller="bssrfilterController">
 
 <div class="col-md-3">
 
@@ -37,13 +37,13 @@
 
     <div class="panel panel-default" ng-repeat="filter in bssr">
 		    <div class="row">
-				<div class="col-md-4 view overlay justify-content-center align-self-center" ng-if="filter.path !== '' " style="height:200px">
+				<div class="col-md-4 view overlay justify-content-center align-self-center" ng-if="filter.path != null " style="height:200px">
 					<img src="{{ url('/avatar/') }}/@{{ filter.path }}" style="width: 100%;height: 100%"> &nbsp; &nbsp;&nbsp;
 					<a href="{{ url('details') }}/@{{ filter.id }}" class="block-link">
 						<div class="mask rgba-white-slight"></div>
 					</a>
 				</div>
-				<div class="col-md-4" ng-if="filter.path === '' " style="height:200px">
+				<div class="col-md-4" ng-if="filter.path == null " style="height:200px">
 					<img src="{{ url('images/noimage.png') }}" style="width: 100%;height: 100%"> &nbsp; &nbsp;&nbsp;
 					<a>
 						<div class="mask rgba-white-slight"></div>
@@ -51,10 +51,18 @@
 				</div>
 
 				<div class="col-md-8 card-body">
-					
-					<a href="{{ url('details') }}/@{{ filter.id }}" class="mt-2"> 
-						<h4 class="card-title"> @{{ filter.advtopic }}</h4> 
-					</a>
+					<div class="row">
+						<div class="col-10">
+							<a href="{{ url('details') }}/@{{ filter.id }}" class="mt-2"> 
+								<h4 class="card-title"> @{{ filter.advtopic }}</h4> 
+							</a>
+						</div>
+						<div class="col-2">
+							<a id="watchlist" title="Add to watchlist">
+								<i class="material-icons">star_border</i>
+							</a>
+						</div>
+					</div>
 					@verbatim
 					{{searchkey}}
 
@@ -95,7 +103,7 @@
 	 	<hr/>
     </div>
     <div class="loading"></div>
-    <center><button class="btn btn-success" ng-click="loadMore()">&nbsp;&nbsp;&nbsp;Load More &nbsp;&nbsp;&nbsp;</button></center>
+    <center><button class="btn btn-success" id="loadmore" ng-click="loadMore()">&nbsp;&nbsp;&nbsp;Load More &nbsp;&nbsp;&nbsp;</button></center>
 </div>
 </div>
 

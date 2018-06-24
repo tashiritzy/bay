@@ -10,7 +10,7 @@ Filter</button>
 		<input type="text" id="search" name="searchkey" ng-model="bssrfilter.searchkey" class="search-query form-control" />
 		<label for="search">Search  ... </label>
 	</div>
-	<div class="md-form">
+	<div id="catSelect" class="md-form">
 		<select name="category" class="mdb-select colorful-select dropdown-primary form-control" ng-model="bssrfilter.category">
 			<option value="">Category</option>
 		@verbatim			

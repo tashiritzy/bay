@@ -41,7 +41,7 @@ Route::post('create', 'BssrController@storeadv');
 
 Route::get('/bssrsearch', 'BssrController@bssrsearch');
 
-Route::get('bssrfilter', 'BssrController@bssrfilter');
+//Route::get('bssrfilter', 'BssrController@bssrfilter');
 
 Route::get('details/{id}', 'BssrController@details');
 
@@ -55,7 +55,9 @@ Route::post('imageupload', 'BssrController@imageupload');
 
 Route::delete('imagedelete', 'BssrController@imagedestroy');
 
-Route::get('categoryview/{catid}', 'BssrController@categoryview');
+Route::get('categoryview/{cat}', 'BssrController@categoryview');
+
+Route::get('/api/v1/categoryviewdata/{catid}', 'BssrController@categoryviewData');
 
 Route::get('userhome', 'BssrController@userhome');
 
@@ -80,15 +82,11 @@ Route::get('auth/facebook/callback', 'Auth\RegisterController@handleProviderCall
 
 //////////////////// angular filter //////////////////////////
 
-Route::get('bssrfilter', function () {
-    return view('bssr.bssrfilter');
-});
-
 Route::get('/api/v1/bssrfilter/{id?}', 'BssrController@index');
 Route::post('/api/v1/bssrfilter1', 'BssrController@filter');
 
 
  
-Route::get('/images/{advid}', 'BssrController@getAdvImages');
+Route::get('imageupload/images/{advid}', 'BssrController@getAdvImages');
  
 Route::post("/delete/file", "BssrController@filedestroy");

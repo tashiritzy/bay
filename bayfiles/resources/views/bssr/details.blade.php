@@ -101,7 +101,9 @@
 			<form name="cmmt" action="{{ url('commentdelete/') }}" method="get">
 			{{ csrf_field() }}
 						
-			<button type="submit" class="close" onclick="return confirm('Are you sure you want to delete your comment?');" title="Delete Comment"><font color="red">x</font></button>
+			<button type="submit" class="close" onclick="return confirm('Are you sure you want to delete your comment?');" title="Delete Comment">
+			<i class="material-icons">close</i>
+			</button>
 			
 			<input type="hidden" name="cmmtid" value="{{ $cmmt->id }}"/>
 			

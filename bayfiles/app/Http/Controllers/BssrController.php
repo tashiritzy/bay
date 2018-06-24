@@ -83,7 +83,7 @@ class BssrController extends Controller
 	public function bssrsearch(Request $request)
 	{
 
-                $cat = DB::table('category')
+        $cat = DB::table('category')
 			->get();
 			
 		$place = DB::table('place')
@@ -108,11 +108,6 @@ class BssrController extends Controller
 
     public function filter(Request $request)
 	{
-		//$cat = DB::table('category')
-			//->get();
-			
-		//$place = DB::table('place')
-			//->get();
 		
 		$search = $request->searchkey;
 		$pricemin = $request->pricemin;
@@ -370,7 +365,7 @@ class BssrController extends Controller
            		->rightjoin('adv', 'picture.advid', '=', 'adv.id')
             		->select('picture.advid','picture.path', 'adv.advtopic', 'adv.id', 'picture.id as picid')
             		->where('adv.id', $advid)
-            		->get();
+					->get();
 		
 		return ['files' => $images];
 	
@@ -393,6 +388,7 @@ class BssrController extends Controller
 		{
 		
 			$advid = $request->advid;
+
 			$adv = $this->getAdv($advid)->first();
 
 			if($adv->userid != Auth::user()->id)
@@ -441,7 +437,6 @@ class BssrController extends Controller
 
 	public function imagedestroy(Request $request)
 	{
-		//$inputs = Input::all();
 		$advid=$request['advid'];
 		$id = $request['pic_id'];
 		
@@ -450,13 +445,12 @@ class BssrController extends Controller
 		$image_path = "avatar/".$img->path;
 
 		if (File::exists($image_path)) {
-			//File::delete($image_path);
 			unlink($image_path);
 			$img->delete();
 		 }
 		 else
 		 {
-			abort(403, 'Unauthorized action.');
+			abort(404, 'Unauthorized action.');
 		 }
 		 	
 		return redirect('/imageupload/'.$advid);
@@ -582,7 +576,11 @@ class BssrController extends Controller
             		
 		return view('userhome', compact('bssr', 'message'));
 	}
-	public function categoryview($catid)
+	public function categoryview($cat)
+	{
+		return view('bssr.category');
+	}
+	public function categoryviewData($catid)
 	{
 		$bssr = Bssr::leftjoin('place', 'adv.placeid', '=', 'place.id') 
 			->leftjoin('category', 'adv.categoryid', '=', 'category.id')
@@ -593,9 +591,14 @@ class BssrController extends Controller
             		->groupBy('adv.id')
             		//->groupBy('adv.id')
             		->orderby('adv.created_at', 'DESC')
-            		->paginate(20);
-
-		return view('bssr', compact('bssr', 'catid'));
+					->paginate(10);
+		
+		$cat = DB::table('category')
+					->select('category.*')
+					->where('category.categoryname', 'like', '%'.$catid.'%')
+					->first();
+		
+		return ['bssr' => $bssr, 'catid' => $catid, 'cat' => $cat];		
 	}
 	public function userhome()
 	{

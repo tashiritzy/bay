@@ -34,6 +34,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
     <script src="<?= asset('app/app.js') ?>"></script>
     <script src="<?= asset('app/services/bssrService.js') ?>"></script> 
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular-route.js"></script>
     
 </head>
 <body>
@@ -131,6 +132,8 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
+
+<script src="<?= asset('js/url.js') ?>"></script>
 
 <!-- fancyBox files -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />

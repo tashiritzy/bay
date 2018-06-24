@@ -18,29 +18,23 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 
 app.controller('FileUploadController', ['$scope', '$http', '$window', function ($scope, $http) {
 
-    var API_URL = "http://localhost/bay/bay/";
-
     $scope.errors = [];
 
     $scope.files = [];
-
     $scope.listFiles = function () {
         var request = {
             method: 'GET',
-            url: API_URL + 'images/224',
+            url: 'images/' + url(4),
             headers: {
-                'Content-Type': undefined
-            }
-        };
+                    'Content-Type': undefined
+                }
+            };
+            $http(request)
+                .then(function success(e) {
+                    $scope.files = e.data.files;
+                }, function error(e) {
 
-        $http(request)
-            .then(function success(e) {
-
-                $scope.files = e.data.files;
-
-            }, function error(e) {
-
-            });
+        });
     };
 
     $scope.listFiles();
@@ -63,7 +57,7 @@ app.controller('FileUploadController', ['$scope', '$http', '$window', function (
                 $scope.files = e.data.files;
                 $scope.errors = [];
                 // clear uploaded file
-                var fileElement = angular.element('#image_file');
+                var fileElement = $("#image_file");
                 fileElement.value = '';
                 alert("Image has been uploaded successfully!");
             }, function error(e) {
@@ -76,8 +70,6 @@ app.controller('FileUploadController', ['$scope', '$http', '$window', function (
             
             formData.append('image_file', value);
             formData.append('advID', $advID);
-
-            console.log(formData);
         });
     };
 

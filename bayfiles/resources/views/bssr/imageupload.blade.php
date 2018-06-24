@@ -92,8 +92,6 @@
             </form>
         </div> <!-- col-6 / end -->
 
-                
-                	Please upload images for better promotion of your ad.
     </div> <!-- row / end -->
 
     <div class="row">
