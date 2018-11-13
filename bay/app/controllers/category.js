@@ -5,7 +5,7 @@ app.controller('bssrCategoryController', function($scope, $http, API_URL) {
 	$scope.lastpage=1;
 
 	$scope.init = function() {
-		var urx = API_URL + "categoryviewdata/"+url(4);
+		var urx = API_URL + "categoryviewdata/"+url(5);
 		$scope.lastpage=1;
 		$http({
 				url: urx,

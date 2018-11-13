@@ -45,14 +45,14 @@
 
         <nav class="navbar navbar-expand-lg navbar-dark default-color">
             <div class="col-xs-3 d-block d-sm-none navbar-brand">
-		        <a class="navbar-toggle" href="{{ url('/') }}"><img src="{{url('images/home.png')}}" height="20px"></a>
+		        <a class="navbar-toggle" href="{{ url('/') }}"><i class="material-icons mt-1">home</i></a>
 		    </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto d-flex align-items-center">
-                    <li class="d-none d-sm-block nav-item active"><a href="{{ url('/') }}"><img src="{{url('images/home.png')}}" height="20px"></a></li>
+                <ul class="navbar-nav mr-auto d-flex">
+                    <li class="d-none d-sm-block nav-item active"><a href="{{ url('/') }}"><i class="material-icons mt-1">home</i></a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('categoryview/electronics') }}"> Electronics <span class="sr-only">(current)</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('categoryview/vehicle') }}"> Vehicle </a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('categoryview/house') }}"> Land & House </a></li>
@@ -66,7 +66,7 @@
                     <!-- Authentication Links -->
                     <li><a href="{{ url('bssr/create') }}" class="btn btn-success">POST YOUR ADVERTISEMENT</a></li>
                     @if (Auth::guest())
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li> |
                         <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="nav-item dropdown">
