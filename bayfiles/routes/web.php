@@ -51,7 +51,7 @@ Route::get('commentdelete', 'BssrController@commentdelete');
 
 Route::get('imageupload/{advid}', 'BssrController@imageupload');
 
-Route::post('imageupload', 'BssrController@imageupload');
+Route::post('/api/v1/imageupload', 'BssrController@imageupload');
 
 Route::delete('imagedelete', 'BssrController@imagedestroy');
 
@@ -72,6 +72,8 @@ Route::post('postadv', 'BssrController@postadv');
 Route::get('myaccount', 'BssrController@myaccount');
 
 Route::post('myaccount', 'BssrController@myaccountupdate');
+
+Route::post('watchlist', 'BssrController@watchlist');
 
 Route::get('test', function () {
     return view('test');

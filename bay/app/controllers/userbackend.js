@@ -18,13 +18,15 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 
 app.controller('FileUploadController', ['$scope', '$http', '$window', function ($scope, $http) {
 
+	var API_URL = "http://localhost/bay/bay/bay/api/v1/";
+	
     $scope.errors = [];
 
     $scope.files = [];
     $scope.listFiles = function () {
         var request = {
             method: 'GET',
-            url: 'images/' + url(4),
+            url: 'images/' + url(5),
             headers: {
                     'Content-Type': undefined
                 }

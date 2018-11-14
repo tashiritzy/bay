@@ -430,7 +430,7 @@ class BssrController extends Controller
 			
 			Picture::create($input);
 			
-			return redirect('/images/'.$advid);
+			return redirect('imageupload/images/'.$advid);
 		}
 	
 	}
