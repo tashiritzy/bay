@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <!--link href="{{url('css/app.css')}}" rel="stylesheet"-->
-    <!--link href="{{url('css/tashi.css')}}" rel="stylesheet"-->
+    <link href="{{url('css/bssr.css')}}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 

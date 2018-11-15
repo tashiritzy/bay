@@ -74,11 +74,11 @@
         </div>
     <!--/form--> 
     
-    <div id="imageGal" ng-if="files.length > 0" class="row">  	
-        <div ng-repeat="file in files" class='col-sm-4 col-xs-6 col-md-3 col-lg-3 mb-2'>
+    <div id="imageGal" ng-if="files.length > 0" class="row m-1">  	
+        <div ng-repeat="file in files" class='col-4 p-2'>
             
             <a data-fancybox="gallery" href="{{ url('/avatar/') }}/@{{ file.path  }}">
-                <img height="100px" src="{{ url('/avatar/') }}/@{{ file.path  }}">
+                <img width="100%" src="{{ url('/avatar/') }}/@{{ file.path  }}">
             </a>
 
             <form action="{{ url('imagedelete') }}" method="POST">
@@ -88,7 +88,7 @@
 
             {!! csrf_field() !!}
 
-            <button type="submit" class="close-icon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
+            <button type="submit" class="close-icon btn btn-danger"><i class="material-icons">close</i></button>
             </form>
         </div> <!-- col-6 / end -->
 

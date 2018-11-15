@@ -18,12 +18,12 @@
     		<font color="#575858" size="5">{{ $bssr->first()->advtopic }}</font> 
 		<br/>    		
     		
-    	<div class='row'>
+    	<div class='row m-1'>
     	@if($images->count())
                 @foreach($images as $image)
-                <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3 mb-2'>
+                <div class='col-4 p-2'>
 				<a data-fancybox="gallery" href="{{ url('/avatar/') }}/{{ $image->path }}">
-						<img height="100px" src="{{ url('/avatar/') }}/{{ $image->path }}">
+						<img class="advimage" src="{{ url('/avatar/') }}/{{ $image->path }}">
 					</a>
                 </div> <!-- col-6 / end -->
 

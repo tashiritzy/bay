@@ -33,7 +33,7 @@
 
     <!-- LOADING ICON =============================================== -->
     <!-- show loading icon if the loading variable is set to true -->
-    <p class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></p>
+    <p class="text-center" ng-show="loading"><span class="fa fa-spinner"></span></p>
 
     <div class="panel panel-default" ng-repeat="filter in bssr">
 		    <div class="row">

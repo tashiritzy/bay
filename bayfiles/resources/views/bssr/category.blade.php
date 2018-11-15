@@ -32,7 +32,7 @@
 
     <!-- LOADING ICON =============================================== -->
     <!-- show loading icon if the loading variable is set to true -->
-    <p class="text-center" ng-show="loading"><span class="fa fa-meh-o fa-5x fa-spin"></span></p>
+    <p class="text-center" ng-show="loading"><span class="fa fa-spinner"></span></p>
 
     <div class="panel panel-default" ng-repeat="filter in bssr">
 		    <div class="row">
@@ -74,7 +74,7 @@
 						</p>
 					</font>
 		
-					<font color="#2ecc71" size="4"> <img src="images/nu.png" width="70"> {{ filter.price }}</font> 
+					<font color="#2ecc71" size="4"> <img src="../images/nu.png" width="70"> {{ filter.price }}</font> 
 							
 														
 					<font color="#a6a9a9" size="2">
