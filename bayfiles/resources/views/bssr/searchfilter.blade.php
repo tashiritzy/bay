@@ -1,9 +1,9 @@
-<p>
-<button class="d-block d-sm-none" data-toggle="collapse" id="filterbutton" data-target="#SearchParameters">
+
+<button class="d-block d-sm-none mb-2" data-toggle="collapse" id="filterbutton" data-target="#SearchParameters">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Filter</button>
-</p>
-<div class="col-md-12 col-sm-12 SearchParameters" id="SearchParameters">
+
+<div class="col-md-12 col-sm-12 SearchParameters collapse in" id="SearchParameters">
 	
    <form name="frmFilter" class="form-horizontal" ng-submit="search()" novalidate="">
    <div class="md-form">
@@ -27,11 +27,11 @@ Filter</button>
 	<div class="row">
 		<div class="col-6 md-form">
 			<input id="pricemin" name="pricemin" ng-model="bssrfilter.pricemin" type="text" class="form-control"> 
-			<label for="pricemin"> Nu. Min </label>
+			<label for="pricemin" class="pl-3"> Nu. Min </label>
 		</div>
 		<div class="col-6 md-form">
 			<input id="pricemax" name="pricemax" ng-model="bssrfilter.pricemax" type="text" class="form-control"> 
-			<label for="pricemax"> Nu. Max </label>
+			<label for="pricemax" class="pl-3"> Nu. Max </label>
 		</div>
 	</div>
 	
