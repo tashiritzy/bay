@@ -8,8 +8,6 @@
 
 {{ csrf_field() }}
 
-@include('search')
-
 	<center>
 	<font color="green">
 	
@@ -21,40 +19,32 @@
 	</center>
 
 <div class="container-fluid">
-    <div class="row"></div>
+    <div class="row">	
+	
+		<div class="left">
+			<div class="item">
+			<span class="glyphicon glyphicon-th-large"></span>
+			</div>
+			<div class="item active">
+			<span class="glyphicon glyphicon-th-list"><i class="icon fa fa-globe"></i></span>
+				<a href="javascript:ajaxLoad('{{url('useradvs')}}')">My Advertisements</a>
+			</div>
+			<div class="item">
+			<span class="glyphicon glyphicon-log-out"><i class="icon fa fa-globe"></i></span>
+				<a href="javascript:ajaxLoad('{{url('usercomment')}}')">My Commented Ads</a>
+			</div>
+			<div class="item">
+			<span class="glyphicon glyphicon-log-in"><i class="icon fa fa-globe"></i></span>
+				<a href="javascript:ajaxLoad('{{url('myaccount')}}')">My Account</a>
+			</div>     
+		</div>
+		<div class="right m-3" id="content">
+		   
+		</div>
+		
+	</div>
     <div class="row">
-        
-        <div class="col-md-12">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">Your Posts and Comments</a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="javascript:ajaxLoad('{{url('useradvs')}}')">My Advertisements</a></li>
-                            <li><a href="javascript:ajaxLoad('{{url('usercomment')}}')">My Commented Ads</a></li>
-                            <li><a href="javascript:ajaxLoad('{{url('myaccount')}}')">My Account</a></li>
-                            
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
-            <div id="content"> Click the above menu.</div>
-            <div class="loading"></div>
-        </div>
-        <div class="col-md-3"></div>
+		<div class="loading"></div>
     </div>
 </div>
 <!-- JavaScripts -->
@@ -76,6 +66,13 @@
             }
         });
     }
+	
+	
+	// SideNav Button Initialization
+$(".button-collapse").sideNav();
+// SideNav Scrollbar Initialization
+var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+Ps.initialize(sideNavScrollbar);
 </script>
 
 
@@ -94,6 +91,55 @@
         display: none;
 
     }
+	
+	
+.left, .right {
+        float:left;
+        height:100vh;
+    }
+    
+.left {
+        background: green;
+        display: inline-block;
+        white-space: nowrap;
+        width: 50px;
+        transition: width 1s ;
+    }
+
+.right {
+        background: #fff;
+        width: 70%;
+        transition: width 1s;
+    }    
+
+.left:hover {
+        width: 250px;
+    }    
+    
+.item:hover {
+        background-color:#ccc;
+        }
+        
+.left .glyphicon {
+        margin:15px;
+        width:20px;
+        color:#fff;
+    }
+    
+.right .glyphicon {
+        color:#a9a9a9;
+    }
+span.glyphicon.glyphicon-refresh{
+    font-size:17px;
+    vertical-align: middle !important;
+    }
+    
+.item {
+        height:50px;
+        overflow:hidden;
+        color:#fff;
+    }
+
 </style>
 @endif
 

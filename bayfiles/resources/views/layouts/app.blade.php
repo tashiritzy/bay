@@ -114,6 +114,10 @@
             </div>
         </div>
         
+		<nav class="navbar fixed-bottom navbar-light bg-light">
+		  <a class="navbar-brand" href="#app"><i class="icon fa fa-globe"></i></a>
+		</nav>
+		
         <!--  Footer Area-->
         <div class="row footer">
             <div class="col-12 text-center">

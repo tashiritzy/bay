@@ -1,9 +1,9 @@
 
-<button class="d-block d-sm-none mb-2" data-toggle="collapse" id="filterbutton" data-target="#SearchParameters">
+<button class="d-block d-sm-none mb-2" data-toggle="collapse" aria-controls="SearchParameters" aria-expanded="false" id="filterbutton" data-target="#SearchParameters">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Filter</button>
 
-<div class="col-md-12 col-sm-12 SearchParameters collapse in" id="SearchParameters">
+<div class="col-md-12 col-sm-12 SearchParameters collapse show" id="SearchParameters">
 	
    <form name="frmFilter" class="form-horizontal" ng-submit="search()" novalidate="">
    <div class="md-form">
