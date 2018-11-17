@@ -50,11 +50,11 @@
 					</a>
 				</div>
 
-				<div class="col-md-8 card-body">
+				<div class="col-md-8">
 					<div class="row">
 						<div class="col-10">
 							<a href="{{ url('details') }}/@{{ filter.id }}" class="mt-2"> 
-								<h4 class="card-title"> @{{ filter.advtopic }}</h4> 
+								<h4> @{{ filter.advtopic }}</h4> 
 							</a>
 						</div>
 						<div class="col-2">
@@ -83,7 +83,7 @@
 							<i class="material-icons">location_on</i>  {{ filter.placename }}
 						</p>	
 						@endverbatim
-						Posted on @{{ filter.created_at | date: "EEEE, MMMM d, y"}}
+						Posted @{{ filter.created_at | fromNow}}
 					</font>
 
 					<div id="fb-root"></div>

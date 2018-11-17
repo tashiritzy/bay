@@ -9,13 +9,11 @@
 {{ csrf_field() }}
 
 	<center>
-	<font color="green">
-	
-	
-	{{ $message or " " }}
-	
-	
-	</font>
+		<font color="green">
+			
+			{{ $message or " " }}
+			
+		</font>
 	</center>
 
 <div class="container-fluid">
@@ -26,16 +24,22 @@
 			<span class="glyphicon glyphicon-th-large"></span>
 			</div>
 			<div class="item active">
-			<span class="glyphicon glyphicon-th-list"><i class="icon fa fa-globe"></i></span>
-				<a href="javascript:ajaxLoad('{{url('useradvs')}}')">My Advertisements</a>
+				<a href="javascript:ajaxLoad('{{url('useradvs')}}')">
+					<span class="glyphicon glyphicon-th-list"><i class="icon fa fa-globe"></i></span>
+					My Advertisements
+				</a>
 			</div>
 			<div class="item">
-			<span class="glyphicon glyphicon-log-out"><i class="icon fa fa-globe"></i></span>
-				<a href="javascript:ajaxLoad('{{url('usercomment')}}')">My Commented Ads</a>
+				<a href="javascript:ajaxLoad('{{url('usercomment')}}')">
+					<span class="glyphicon glyphicon-log-out"><i class="icon fa fa-comments-o"></i></span>
+					My Commented Ads
+				</a>
 			</div>
 			<div class="item">
-			<span class="glyphicon glyphicon-log-in"><i class="icon fa fa-globe"></i></span>
-				<a href="javascript:ajaxLoad('{{url('myaccount')}}')">My Account</a>
+				<a href="javascript:ajaxLoad('{{url('myaccount')}}')">
+					<span class="glyphicon glyphicon-log-in"><i class="icon fa fa-user"></i></span>
+					My Account
+				</a>
 			</div>     
 		</div>
 		<div class="right m-3" id="content">
@@ -69,10 +73,10 @@
 	
 	
 	// SideNav Button Initialization
-$(".button-collapse").sideNav();
-// SideNav Scrollbar Initialization
-var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-Ps.initialize(sideNavScrollbar);
+	$(".button-collapse").sideNav();
+	// SideNav Scrollbar Initialization
+	var sideNavScrollbar = document.querySelector('.custom-scrollbar');
+	Ps.initialize(sideNavScrollbar);
 </script>
 
 
@@ -99,16 +103,16 @@ Ps.initialize(sideNavScrollbar);
     }
     
 .left {
-        background: green;
+        background: #f8f9fa;
         display: inline-block;
         white-space: nowrap;
-        width: 50px;
+        width: 45px;
         transition: width 1s ;
     }
 
 .right {
         background: #fff;
-        width: 70%;
+        max-width: 70%;
         transition: width 1s;
     }    
 
@@ -123,7 +127,7 @@ Ps.initialize(sideNavScrollbar);
 .left .glyphicon {
         margin:15px;
         width:20px;
-        color:#fff;
+        color: green;
     }
     
 .right .glyphicon {

@@ -115,7 +115,7 @@
         </div>
         
 		<nav class="navbar fixed-bottom navbar-light bg-light">
-		  <a class="navbar-brand" href="#app"><i class="icon fa fa-globe"></i></a>
+		  <a class="navbar-brand" href="#app"><i class="icon fa fa-arrow-up"></i></a>
 		</nav>
 		
         <!--  Footer Area-->
@@ -142,6 +142,8 @@
 <!-- fancyBox files -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 
 <script>
 // MDB Lightbox Init

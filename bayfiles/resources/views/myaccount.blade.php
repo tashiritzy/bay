@@ -1,12 +1,12 @@
-     <div class="panel-heading">My Account Details</div>
+<div class="panel-heading">My Account Details</div>
 	<div class="panel-body">
 	    <form class="form-horizontal" role="form" method="POST" action="{{ url('/myaccount') }}">
 		{{ csrf_field() }}
 
 		<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-		    <label for="name" class="col-md-4 control-label">Name</label>
+		    <label for="name" class="control-label">Name</label>
 
-		    <div class="col-md-6">
+		    <div>
 			<input id="name" type="text" name="name" value="{{ Auth::user()->name }}" required>
 
 			@if ($errors->has('name'))
@@ -18,9 +18,9 @@
 		</div>
 		
 		<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-		    <label for="name" class="col-md-4 control-label">Phone</label>
+		    <label for="name" class="control-label">Phone</label>
 
-		    <div class="col-md-6">
+		    <div>
 			<input id="phone" type="text" name="phone" value="{{ Auth::user()->phone }}" required autofocus>
 
 			@if ($errors->has('phone'))
@@ -32,9 +32,9 @@
 		</div>
 
 		<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-		    <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+		    <label for="email" class="control-label">E-Mail Address</label>
 
-		    <div class="col-md-6">
+		    <div>
 			<input id="email" type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
 
 			@if ($errors->has('email'))
@@ -46,9 +46,9 @@
 		</div>
 		
 		<div class="form-group">
-                            <label for="email-confirm" class="col-md-4 control-label">Confirm Email ID</label>
+                            <label for="email-confirm" class="control-label">Confirm Email ID</label>
 
-                            <div class="col-md-6">
+                            <div>
                                 <input id="email-confirm" type="email" 
                                 onfocus="validateMail(document.getElementById('email'), this);" 
                                 oninput="validateMail(document.getElementById('email'), this);"
@@ -75,4 +75,4 @@
 		</div>
 	    </form>
 	</div>
-    </div>
+</div>
