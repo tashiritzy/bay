@@ -19,6 +19,7 @@ app.directive('ngFiles', ['$parse', function ($parse) {
 app.controller('FileUploadController', ['$scope', '$http', '$window', function ($scope, $http) {
 
 	var API_URL = "http://localhost/bay/bay/bay/api/v1/";
+	//var API_URL = "http://bay.druklink.net/api/v1/";
 	
     $scope.errors = [];
 
@@ -61,7 +62,7 @@ app.controller('FileUploadController', ['$scope', '$http', '$window', function (
                 // clear uploaded file
                 var fileElement = $("#image_file");
                 fileElement.value = '';
-                alert("Image has been uploaded successfully!");
+                toastr.success('Picture uploaded!', 'Successful');
             }, function error(e) {
                 $scope.errors = e.data.errors;
             });

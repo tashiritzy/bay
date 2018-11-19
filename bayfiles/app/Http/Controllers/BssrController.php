@@ -391,6 +391,8 @@ class BssrController extends Controller
 
 			$adv = $this->getAdv($advid)->first();
 
+			if(!isset(Auth::user()->id))
+				abort(403, 'Unauthorized action.');
 			if($adv->userid != Auth::user()->id)
 			{
 				abort(403, 'Unauthorized action.');

@@ -57,7 +57,7 @@ app.controller('bssrCategoryController', function($scope, $http, API_URL) {
 					$("#loadmore").hide();
             
         }).error(function(response) {
-            alert('This is embarassing. An error has occured. Please check the log for details');
+            toastr.error('This is embarassing. An error has occured', 'Inconvenience regretted!');
         });
     }
     
