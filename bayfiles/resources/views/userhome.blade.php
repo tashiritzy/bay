@@ -117,7 +117,7 @@
     }    
 
 .left:hover {
-        width: 250px;
+        //width: 250px;
     }    
     
 .item:hover {
